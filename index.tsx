@@ -15,7 +15,9 @@ import {
   MoreHorizontal,
   Upload,
   RotateCcw,
-  Clock
+  Clock,
+  Flame,
+  Volume2
 } from 'lucide-react';
 
 // --- 常量定义 ---
@@ -335,43 +337,68 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
   }
 };
 
-// --- 子组件：通知栏 (保持不变) ---
+// --- 子组件：通知栏 (New Dark Theme) ---
 
 const NotificationBar = () => (
-  <div className="flex items-center gap-4 mb-2 px-4 py-2 bg-[#fff7e6] border border-[#ffd591] rounded-lg shadow-sm overflow-hidden shrink-0">
-    <div className="flex items-center gap-2 text-[#d46b08] shrink-0">
-      <Bell size={14} className="animate-pulse" />
-      <span className="text-xs font-bold">系统公告</span>
+  <div className="flex items-center gap-4 mb-4 px-4 py-3 bg-[#0f172a] rounded-lg shadow-sm overflow-hidden shrink-0 text-white border-l-4 border-red-500">
+    <div className="flex items-center gap-2 shrink-0">
+      <div className="bg-red-500 text-white text-xs px-2 py-0.5 rounded font-bold">重要公告</div>
+      <Bell size={14} className="text-slate-400" />
     </div>
-    <div className="flex-1 overflow-hidden relative h-5 flex items-center">
-      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-8 text-[11px] text-[#d46b08]">
-        <span>📢 数据看板已更新：店铺统计增加“门市单量占比”视图，天梯榜排名逻辑已优化，请各位负责人知悉。</span>
+    
+    <div className="flex-1 overflow-hidden relative h-5 flex items-center border-r border-slate-700 pr-4">
+      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-8 text-xs text-slate-200">
+        <span className="flex items-center gap-2"><Volume2 size={12}/> 关于 2025 年度秋季职级晋升评审的通知: 点击下方详情以阅读完整公告内容。请所有相关人员务必在截止日期前完成确认。</span>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-6 shrink-0 text-xs pl-2">
+      <div className="bg-[#1e293b] px-2 py-1 rounded text-slate-400 font-mono">
+        2025-11-19
       </div>
     </div>
     <style>{`@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }`}</style>
   </div>
 );
 
-// --- 子组件：新的 5x2 菜单网格 ---
+// --- 子组件：新的 5x2 菜单网格 (Colorful Theme) ---
+
+// Defining color themes to cycle through
+const BUTTON_THEMES = [
+  { name: 'red', solid: 'bg-red-500 text-white border-red-500 shadow-red-200', light: 'bg-red-50 text-red-500 border-red-200 hover:border-red-400' },
+  { name: 'orange', solid: 'bg-orange-400 text-white border-orange-400 shadow-orange-200', light: 'bg-[#fff7e6] text-[#fa8c16] border-[#ffe7ba] hover:border-[#ffd591]' },
+  { name: 'blue', solid: 'bg-blue-500 text-white border-blue-500 shadow-blue-200', light: 'bg-[#e6f7ff] text-[#1890ff] border-[#bae7ff] hover:border-[#91d5ff]' },
+  { name: 'green', solid: 'bg-[#a0d911] text-white border-[#a0d911] shadow-lime-200', light: 'bg-[#fcffe6] text-[#7cb305] border-[#eaff8f] hover:border-[#d3f261]' },
+  { name: 'cyan', solid: 'bg-cyan-400 text-white border-cyan-400 shadow-cyan-200', light: 'bg-[#e6fffb] text-[#13c2c2] border-[#87e8de] hover:border-[#5cdbd3]' },
+  { name: 'purple', solid: 'bg-purple-500 text-white border-purple-500 shadow-purple-200', light: 'bg-[#f9f0ff] text-[#722ed1] border-[#d3adf7] hover:border-[#b37feb]' },
+  { name: 'pink', solid: 'bg-[#ff85c0] text-white border-[#ff85c0] shadow-pink-200', light: 'bg-[#fff0f6] text-[#eb2f96] border-[#ffadd2] hover:border-[#ff85c0]' },
+];
 
 const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) => void }) => {
   return (
-    <div className="grid grid-cols-5 gap-2 mb-2">
-      {MENU_ITEMS.map((item) => (
-        <button
-          key={item}
-          onClick={() => onSelect(item)}
-          className={`h-9 text-[12px] font-bold rounded-lg border transition-all shadow-sm flex items-center justify-center ${
-            active === item 
-              ? 'bg-[#1890ff] text-white border-[#1890ff] ring-2 ring-blue-100' 
-              : 'bg-white text-slate-600 border-slate-200 hover:border-[#1890ff] hover:text-[#1890ff]'
-          }`}
-        >
-          {item}
-        </button>
-      ))}
-      {/* 占位符，保证第二行填满或留空 */}
-      <div className="hidden sm:block"></div> 
+    <div className="bg-white p-4 rounded-xl border border-slate-100 mb-4 shadow-sm">
+      <div className="grid grid-cols-5 gap-3">
+        {MENU_ITEMS.map((item, index) => {
+          const theme = BUTTON_THEMES[index % BUTTON_THEMES.length];
+          const isActive = active === item;
+          
+          return (
+            <button
+              key={item}
+              onClick={() => onSelect(item)}
+              className={`h-11 text-sm font-bold rounded-lg border transition-all duration-200 flex items-center justify-center ${
+                isActive 
+                  ? `${theme.solid} shadow-md transform scale-[1.02]` 
+                  : `${theme.light} border bg-opacity-60`
+              }`}
+            >
+              {item}
+            </button>
+          );
+        })}
+        {/* 占位符，保证网格整齐 */}
+        <div className="hidden sm:block"></div> 
+      </div>
     </div>
   );
 };
