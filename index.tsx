@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { 
   Bell, 
@@ -17,7 +17,9 @@ import {
   RotateCcw,
   Clock,
   Flame,
-  Volume2
+  Volume2,
+  ArrowUpDown,
+  ChevronUp
 } from 'lucide-react';
 
 // --- 常量定义 ---
@@ -51,8 +53,8 @@ const getRandomDate = () => `2025-${String(Math.floor(Math.random() * 12) + 1).p
 // --- 页面配置定义 ---
 
 interface FilterConfig {
-  label: string;
-  type: 'select' | 'input' | 'date-range';
+  label?: string; // Optional for history view where we just show inputs
+  type: 'select' | 'input' | 'date-range' | 'custom-date-row'; // Added custom-date-row for history view
   placeholder?: string;
   options?: string[];
   width?: string;
@@ -63,6 +65,7 @@ interface ColumnConfig {
   header: string;
   key: string;
   width?: string;
+  sortable?: boolean;
   render?: (row: any) => React.ReactNode;
 }
 
@@ -337,6 +340,29 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
   }
 };
 
+// --- Special Config for History View in Tag Management ---
+const HISTORY_PAGE_CONFIG: PageConfig = {
+  filters: [
+    { type: "custom-date-row", label: "" }
+  ],
+  columns: [
+    { header: "操作时间", key: "time", sortable: true },
+    { header: "操作人", key: "operator", sortable: true },
+    { header: "操作类型", key: "type", sortable: true },
+    { header: "涉及标签", key: "tag" },
+    { header: "操作详情", key: "details", width: "40%" },
+  ],
+  generateData: () => Array.from({ length: 15 }).map((_, i) => ({
+    id: i,
+    time: getRandomDate(),
+    operator: "管理员",
+    type: getRandom(["修改", "创建", "启用", "删除"]),
+    tag: `etqvMOZwAA${Math.random().toString(36).substring(2, 10)}...`,
+    details: Math.random() > 0.5 ? "修改: 标签简称 qvfl改为v049" : "将标签状态从“禁用”修改为“启用”",
+  }))
+};
+
+
 // --- 子组件：通知栏 (New Dark Theme) ---
 
 const NotificationBar = () => (
@@ -405,17 +431,35 @@ const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) 
 
 // --- 子组件：Filter Section ---
 
-const FilterSection = ({ config }: { config: PageConfig }) => {
+const FilterSection = ({ config, isHistoryView }: { config: PageConfig, isHistoryView?: boolean }) => {
   const primaryFilters = config.filters.filter(f => !f.isSecondary);
   const secondaryFilters = config.filters.filter(f => f.isSecondary);
   const hasActions = config.actions && config.actions.length > 0;
+
+  // Special layout for History View: Just date range and search/reset buttons in one line
+  if (isHistoryView) {
+    return (
+       <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100 flex items-center gap-2">
+         <div className="flex items-center gap-1 text-slate-400">
+           <Clock size={16} />
+         </div>
+         <div className="flex items-center gap-1">
+             <input type="text" placeholder="开始日期" className="border border-slate-300 rounded px-2 h-8 text-xs w-32 outline-none focus:border-blue-400" />
+             <span className="text-slate-400 text-xs">至</span>
+             <input type="text" placeholder="结束日期" className="border border-slate-300 rounded px-2 h-8 text-xs w-32 outline-none focus:border-blue-400" />
+         </div>
+         <button className="bg-[#1890ff] text-white px-4 h-8 rounded text-xs ml-2 hover:bg-blue-600 transition-colors">搜索</button>
+         <button className="border border-slate-300 text-slate-600 px-4 h-8 rounded text-xs hover:bg-slate-50 transition-colors font-bold">重置</button>
+       </div>
+    );
+  }
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
       <div className="flex flex-wrap items-center gap-4">
         {primaryFilters.map((f, i) => (
           <div key={i} className="flex items-center gap-2">
-            <label className="text-xs font-medium text-slate-700 whitespace-nowrap">{f.label}</label>
+            {f.label && <label className="text-xs font-medium text-slate-700 whitespace-nowrap">{f.label}</label>}
             {f.type === 'select' ? (
               <div className="relative">
                 <select className="border border-slate-300 rounded px-2 h-7 text-xs w-28 outline-none focus:border-blue-400 bg-white appearance-none">
@@ -473,27 +517,38 @@ const FilterSection = ({ config }: { config: PageConfig }) => {
 
 // --- 子组件：Table List ---
 
-const TableList = ({ type }: { type: MenuType }) => {
-  const config = PAGE_CONFIGS[type];
-  const data = useMemo(() => config.generateData(), [type]);
+const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'history' }) => {
+  const isHistoryView = type === '标签管理' && subTab === 'history';
+  const config = isHistoryView ? HISTORY_PAGE_CONFIG : PAGE_CONFIGS[type];
+  const data = useMemo(() => config.generateData(), [type, subTab]);
 
   return (
     <div className="flex flex-col gap-3 h-full overflow-hidden">
       {/* 1. 筛选区域 (圆角矩形) */}
-      <FilterSection config={config} />
+      <FilterSection config={config} isHistoryView={isHistoryView} />
 
       {/* 2. 表格区域 (圆角矩形) */}
-      <div className="flex-1 bg-white border border-slate-100 rounded-lg shadow-sm flex flex-col overflow-hidden">
-        {/* 工具栏 (Actions) - 已移除，按钮移动到了 FilterSection */}
-        
+      <div className="flex-1 bg-white border border-slate-100 rounded-lg shadow-sm flex flex-col overflow-hidden relative">
+        {/* Special 'Collapse' tag for history view */}
+        {isHistoryView && (
+          <div className="absolute top-0 right-0 bg-[#3b82f6] text-white text-[10px] px-3 py-1 rounded-bl-lg font-medium cursor-pointer flex items-center gap-1 z-20">
+             收起
+          </div>
+        )}
+
         {/* 表格内容 */}
         <div className="flex-1 overflow-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead className="bg-slate-50 sticky top-0 z-10 shadow-sm text-xs font-bold text-slate-600">
               <tr>
-                <th className="p-3 border-b text-center w-12">序号</th>
+                <th className="p-3 border-b text-center w-12 text-slate-500 font-normal">序号</th>
                 {config.columns.map(col => (
-                  <th key={col.key} className="p-3 border-b" style={{ width: col.width }}>{col.header}</th>
+                  <th key={col.key} className="p-3 border-b" style={{ width: col.width }}>
+                    <div className="flex items-center gap-1">
+                      {col.header}
+                      {col.sortable && <ArrowUpDown size={12} className="text-slate-400" />}
+                    </div>
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -536,6 +591,12 @@ const TableList = ({ type }: { type: MenuType }) => {
 
 const App = () => {
   const [activeTab, setActiveTab] = useState<MenuType>(MENU_ITEMS[0]);
+  const [subTab, setSubTab] = useState<'manage' | 'history'>('manage');
+
+  // Reset subTab when activeTab changes
+  useEffect(() => {
+    setSubTab('manage');
+  }, [activeTab]);
 
   return (
     <div className="h-screen bg-[#f8fafc] p-3 flex flex-col overflow-hidden font-sans text-slate-800">
@@ -543,13 +604,32 @@ const App = () => {
       
       <MenuGrid active={activeTab} onSelect={(t) => setActiveTab(t as MenuType)} />
       
-      {/* 运营效能概览 (保持不变) */}
+      {/* 运营效能概览 */}
       <div className="bg-[#f0f7ff] rounded-lg border border-[#d9d9d9] overflow-hidden flex items-center shadow-sm h-12 mb-2 shrink-0">
         <div className="flex items-center gap-3 px-4 flex-1">
-          <div className="flex items-center gap-2 mr-8 shrink-0">
+          <div className="flex items-center gap-2 mr-4 shrink-0">
             <Activity size={18} className="text-[#1890ff]" />
             <span className="text-sm font-bold text-[#003a8c]">运营效能概览</span>
           </div>
+
+          {/* Sub Navigation for 'Tag Management' */}
+          {activeTab === '标签管理' && (
+             <div className="flex gap-1 mr-8">
+               <button 
+                onClick={() => setSubTab('manage')}
+                className={`text-xs px-3 py-1 rounded transition-colors ${subTab === 'manage' ? 'bg-[#1890ff] text-white' : 'text-[#1890ff] hover:bg-blue-100'}`}
+               >
+                 标签管理
+               </button>
+               <button 
+                onClick={() => setSubTab('history')}
+                className={`text-xs px-3 py-1 rounded transition-colors ${subTab === 'history' ? 'bg-[#1890ff] text-white' : 'text-[#1890ff] hover:bg-blue-100'}`}
+               >
+                 历史操作记录
+               </button>
+             </div>
+          )}
+
           <div className="flex gap-12">
             {[['今日单量', '2,482', '#262626'], ['异常预警', '3', '#f5222d'], ['榜单第一', '廖林峰', '#52c41a'], ['全网GMV', '¥85.4w', '#1890ff']].map(([label, val, color]) => (
               <div key={label} className="flex items-center gap-1.5">
@@ -563,7 +643,7 @@ const App = () => {
 
       {/* 核心内容区 */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <TableList type={activeTab} />
+        <TableList type={activeTab} subTab={subTab} />
       </div>
     </div>
   );
