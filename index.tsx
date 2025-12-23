@@ -573,20 +573,28 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
         </div>
 
         {/* 底部页码 */}
-        <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-between bg-white shrink-0 rounded-b-xl">
-          <span className="text-xs text-slate-500 font-medium">共 {data.length} 条数据</span>
-          <div className="flex items-center gap-2">
-            <select className="border border-slate-200 rounded-md text-xs h-7 px-2 bg-white outline-none text-slate-600 cursor-pointer hover:border-blue-400 transition-colors">
-              <option>10条/页</option>
-              <option>20条/页</option>
-            </select>
-            <div className="flex items-center gap-1">
-              <button className="w-7 h-7 border border-slate-200 rounded-md bg-white flex items-center justify-center hover:border-blue-400 hover:text-blue-500 disabled:opacity-50 transition-all text-slate-500"><ChevronLeft size={14} /></button>
-              <button className="w-7 h-7 border border-[#1890ff] rounded-md bg-[#1890ff] text-white text-xs font-bold shadow-sm">1</button>
-              <button className="w-7 h-7 border border-slate-200 rounded-md bg-white text-xs text-slate-600 hover:border-blue-400 hover:text-blue-500 font-medium transition-all">2</button>
-              <button className="w-7 h-7 border border-slate-200 rounded-md bg-white flex items-center justify-center hover:border-blue-400 hover:text-blue-500 transition-all text-slate-500"><ChevronRight size={14} /></button>
-            </div>
-            <span className="text-xs text-slate-500 ml-2">前往 <input type="text" defaultValue="1" className="w-9 border border-slate-200 rounded-md text-center h-6 text-xs focus:border-blue-400 outline-none transition-all" /> 页</span>
+        <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-center gap-4 bg-white shrink-0 rounded-b-xl">
+          <span className="text-sm text-slate-500">共 {data.length} 条</span>
+          
+          <select className="border border-slate-200 rounded px-2 h-8 text-sm outline-none text-slate-600 cursor-pointer hover:border-blue-400 transition-colors bg-white">
+            <option>20条/页</option>
+            <option>50条/页</option>
+            <option>100条/页</option>
+          </select>
+
+          <div className="flex items-center gap-1">
+            <button className="w-8 h-8 border border-slate-200 rounded bg-white flex items-center justify-center text-slate-500 hover:border-blue-400 hover:text-blue-500 disabled:opacity-50 transition-all"><ChevronLeft size={16} /></button>
+            <button className="w-8 h-8 border border-[#1890ff] rounded bg-[#1890ff] text-white text-sm font-medium shadow-sm transition-all">1</button>
+            {[2, 3, 4, 5, 6, 7].map(num => (
+              <button key={num} className="w-8 h-8 border border-slate-200 rounded bg-white text-sm text-slate-600 hover:border-blue-400 hover:text-blue-500 font-medium transition-all">{num}</button>
+            ))}
+            <button className="w-8 h-8 border border-slate-200 rounded bg-white flex items-center justify-center text-slate-500 hover:border-blue-400 hover:text-blue-500 transition-all"><ChevronRight size={16} /></button>
+          </div>
+
+          <div className="flex items-center gap-2 text-sm text-slate-500">
+            <span>前往</span>
+            <input type="text" defaultValue="1" className="w-12 h-8 border border-slate-200 rounded text-center text-sm focus:border-blue-400 outline-none transition-all" />
+            <span>页</span>
           </div>
         </div>
       </div>
