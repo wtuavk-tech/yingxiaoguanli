@@ -89,16 +89,16 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "投诉编号", key: "code" },
       { header: "投诉人", key: "name" },
       { header: "用户类型", key: "userType" },
-      { header: "投诉佐证", key: "proof", render: () => <span className="text-blue-500 cursor-pointer flex items-center gap-1"><FileText size={12}/> 图片</span> },
+      { header: "投诉佐证", key: "proof", render: () => <span className="text-blue-500 cursor-pointer flex items-center gap-1"><FileText size={14}/> 图片</span> },
       { header: "投诉类型", key: "type" },
       { header: "内容", key: "content", width: "20%" },
       { header: "创建时间", key: "createTime" },
-      { header: "状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs ${STATUS_MAP[row.status as keyof typeof STATUS_MAP] || 'bg-gray-100'}`}>{row.status}</span> },
+      { header: "状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_MAP[row.status as keyof typeof STATUS_MAP] || 'bg-gray-100'}`}>{row.status}</span> },
       { header: "关联订单号", key: "orderNo" },
       { header: "处理人", key: "handler" },
       { header: "处理意见", key: "opinion" },
       { header: "处理时间", key: "handleTime" },
-      { header: "操作", key: "ops", render: () => <button className="text-blue-600 hover:underline">处理</button> },
+      { header: "操作", key: "ops", render: () => <button className="text-blue-600 hover:text-blue-700 font-medium">处理</button> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -128,10 +128,10 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "标签名称", key: "name" },
       { header: "标签分组", key: "group" },
       { header: "标签说明", key: "desc", width: "20%" },
-      { header: "状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs ${row.status === '启用' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>{row.status}</span> },
+      { header: "状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs font-medium ${row.status === '启用' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>{row.status}</span> },
       { header: "标签简码", key: "shortCode" },
       { header: "创建时间", key: "createTime" },
-      { header: "操作", key: "ops", render: () => <div className="flex gap-2 text-blue-600"><button>修改</button><button className="text-red-500">删除</button><button>禁用</button></div> },
+      { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button><button className="hover:text-blue-700">禁用</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -159,7 +159,7 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "订单来源", key: "source" },
       { header: "区域全称", key: "fullRegion" },
       { header: "区域名称", key: "region" },
-      { header: "操作", key: "ops", render: () => <button className="text-red-500 hover:underline">删除</button> },
+      { header: "操作", key: "ops", render: () => <button className="text-red-500 hover:text-red-600 hover:underline font-medium">删除</button> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -181,13 +181,13 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     columns: [
       { header: "类型", key: "type" },
       { header: "模板名称", key: "name" },
-      { header: "状态", key: "status", render: (row) => <span className={row.status === '启用' ? 'text-green-600' : 'text-slate-400'}>{row.status}</span> },
+      { header: "状态", key: "status", render: (row) => <span className={`font-medium ${row.status === '启用' ? 'text-green-600' : 'text-slate-400'}`}>{row.status}</span> },
       { header: "模板代码", key: "code" },
       { header: "内容", key: "content", width: "25%" },
       { header: "渠道", key: "channel" },
       { header: "参数", key: "params" },
       { header: "创建时间", key: "createTime" },
-      { header: "操作", key: "ops", render: () => <div className="flex gap-2 text-blue-600"><button>修改</button><button className="text-red-500">删除</button></div> },
+      { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -216,7 +216,7 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "负责人", key: "manager" },
       { header: "是否可安排短信", key: "canSend" },
       { header: "短信关键词", key: "keywords" },
-      { header: "操作", key: "ops", render: () => <div className="flex gap-2 text-blue-600"><button>修改</button><button className="text-red-500">删除</button></div> },
+      { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -240,8 +240,8 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "发送时间", key: "sendTime" },
       { header: "号码数量", key: "count" },
       { header: "失败数量", key: "failCount" },
-      { header: "发送状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs ${STATUS_MAP[row.status as keyof typeof STATUS_MAP] || ''}`}>{row.status}</span> },
-      { header: "操作", key: "ops", render: () => <div className="flex gap-2 text-blue-600"><button>详情</button><button className="text-orange-500">失败补发</button></div> },
+      { header: "发送状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_MAP[row.status as keyof typeof STATUS_MAP] || ''}`}>{row.status}</span> },
+      { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">详情</button><button className="text-orange-500 hover:text-orange-600">失败补发</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -266,10 +266,10 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "业务类型", key: "bizType" },
       { header: "发送类型", key: "sendType" },
       { header: "发送时间", key: "sendTime" },
-      { header: "状态", key: "status", render: (row) => <span className={row.status === '成功' ? 'text-green-600' : 'text-red-600'}>{row.status}</span> },
+      { header: "状态", key: "status", render: (row) => <span className={`font-medium ${row.status === '成功' ? 'text-green-600' : 'text-red-600'}`}>{row.status}</span> },
       { header: "发送人", key: "sender" },
       { header: "失败原因", key: "failReason" },
-      { header: "操作", key: "ops", render: () => <div className="flex gap-2 text-blue-600"><button>查看内容</button><button>重发</button></div> },
+      { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">查看内容</button><button className="hover:text-blue-700">重发</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -322,7 +322,7 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "小程序页面名称", key: "pageName" },
       { header: "页面路径", key: "path", width: "15%", render: (r) => <div className="truncate w-32" title={r.path}>{r.path}</div> },
       { header: "标签", key: "tags" },
-      { header: "操作", key: "ops", render: () => <div className="flex gap-2 text-blue-600 text-xs"><button>重新生成</button><button>修改</button><button className="text-red-500">删除</button></div> },
+      { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 text-xs font-medium"><button className="hover:text-blue-700">重新生成</button><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -405,14 +405,19 @@ const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) 
     <div className="bg-white p-4 rounded-xl border border-slate-100 mb-4 shadow-sm">
       <div className="grid grid-cols-5 gap-3">
         {MENU_ITEMS.map((item, index) => {
-          const theme = BUTTON_THEMES[index % BUTTON_THEMES.length];
+          // Force blue theme for all items as requested (Complaint, Tag, Templates, Channels, Tasks, Timeout, Logs, MiniProgram)
+          // "短信区域" is naturally blue (index 2). 
+          // The user requested all other specific items to match "短信区域".
+          // Since this covers the entire list, we use the blue theme for everything.
+          const theme = BUTTON_THEMES[2]; 
+
           const isActive = active === item;
           
           return (
             <button
               key={item}
               onClick={() => onSelect(item)}
-              className={`h-11 text-sm font-bold rounded-lg border transition-all duration-200 flex items-center justify-center ${
+              className={`h-9 text-sm font-bold rounded-lg border transition-all duration-200 flex items-center justify-center ${
                 isActive 
                   ? `${theme.solid} shadow-md transform scale-[1.02]` 
                   : `${theme.light} border bg-opacity-60`
@@ -439,57 +444,57 @@ const FilterSection = ({ config, isHistoryView }: { config: PageConfig, isHistor
   // Special layout for History View: Just date range and search/reset buttons in one line
   if (isHistoryView) {
     return (
-       <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100 flex items-center gap-2">
-         <div className="flex items-center gap-1 text-slate-400">
-           <Clock size={16} />
+       <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100 flex items-center gap-3">
+         <div className="flex items-center gap-2 text-slate-400">
+           <Clock size={18} />
          </div>
-         <div className="flex items-center gap-1">
-             <input type="text" placeholder="开始日期" className="border border-slate-300 rounded px-2 h-8 text-xs w-32 outline-none focus:border-blue-400" />
-             <span className="text-slate-400 text-xs">至</span>
-             <input type="text" placeholder="结束日期" className="border border-slate-300 rounded px-2 h-8 text-xs w-32 outline-none focus:border-blue-400" />
+         <div className="flex items-center gap-2">
+             <input type="text" placeholder="开始日期" className="bg-slate-50 border border-slate-200 rounded-md px-3 h-9 text-sm w-36 outline-none focus:bg-white focus:border-blue-400 transition-all" />
+             <span className="text-slate-400 text-sm">至</span>
+             <input type="text" placeholder="结束日期" className="bg-slate-50 border border-slate-200 rounded-md px-3 h-9 text-sm w-36 outline-none focus:bg-white focus:border-blue-400 transition-all" />
          </div>
-         <button className="bg-[#1890ff] text-white px-4 h-8 rounded text-xs ml-2 hover:bg-blue-600 transition-colors">搜索</button>
-         <button className="border border-slate-300 text-slate-600 px-4 h-8 rounded text-xs hover:bg-slate-50 transition-colors font-bold">重置</button>
+         <button className="bg-[#1890ff] text-white px-5 h-9 rounded-md text-sm font-medium ml-2 hover:bg-blue-600 shadow-sm transition-all">搜索</button>
+         <button className="border border-slate-200 text-slate-600 px-5 h-9 rounded-md text-sm font-medium hover:bg-slate-50 transition-all">重置</button>
        </div>
     );
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+    <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
       <div className="flex flex-wrap items-center gap-4">
         {primaryFilters.map((f, i) => (
           <div key={i} className="flex items-center gap-2">
-            {f.label && <label className="text-xs font-medium text-slate-700 whitespace-nowrap">{f.label}</label>}
+            {f.label && <label className="text-sm font-medium text-slate-700 whitespace-nowrap">{f.label}</label>}
             {f.type === 'select' ? (
               <div className="relative">
-                <select className="border border-slate-300 rounded px-2 h-7 text-xs w-28 outline-none focus:border-blue-400 bg-white appearance-none">
+                <select className="bg-slate-50 border border-slate-200 rounded-md px-3 h-9 text-sm w-32 outline-none focus:bg-white focus:border-blue-400 appearance-none transition-all cursor-pointer">
                   {f.options?.map(opt => <option key={opt}>{opt}</option>)}
                 </select>
-                <div className="absolute right-2 top-2 pointer-events-none text-slate-400">▼</div>
+                <div className="absolute right-2 top-2.5 pointer-events-none text-slate-400">▼</div>
               </div>
             ) : f.type === 'input' ? (
-              <input type="text" placeholder={f.placeholder} className="border border-slate-300 rounded px-2 h-7 text-xs w-32 outline-none focus:border-blue-400" />
+              <input type="text" placeholder={f.placeholder} className="bg-slate-50 border border-slate-200 rounded-md px-3 h-9 text-sm w-40 outline-none focus:bg-white focus:border-blue-400 transition-all" />
             ) : null}
           </div>
         ))}
 
         <div className="flex gap-2 ml-2">
-          <button className="bg-[#1890ff] text-white px-4 h-7 rounded text-xs hover:bg-blue-600 transition-colors">搜索</button>
-          <button className="border border-slate-300 text-slate-600 px-3 h-7 rounded text-xs hover:bg-slate-50 transition-colors">重置</button>
+          <button className="bg-[#1890ff] text-white px-5 h-9 rounded-md text-sm font-medium hover:bg-blue-600 shadow-blue-100 shadow-md transition-all">搜索</button>
+          <button className="border border-slate-200 text-slate-600 px-4 h-9 rounded-md text-sm font-medium hover:bg-slate-50 transition-all">重置</button>
         </div>
 
         {/* Secondary filters appear after buttons */}
         {secondaryFilters.map((f, i) => (
           <div key={`sec-${i}`} className="flex items-center gap-2 pl-4 border-l border-slate-200">
-            <label className="text-xs font-medium text-slate-700 whitespace-nowrap">{f.label}</label>
+            <label className="text-sm font-medium text-slate-700 whitespace-nowrap">{f.label}</label>
             {f.type === 'date-range' ? (
-               <div className="flex items-center gap-1">
+               <div className="flex items-center gap-2">
                  <div className="relative">
-                   <Clock size={12} className="absolute left-2 top-2 text-slate-400"/>
-                   <input type="text" placeholder="开始日期" className="border border-slate-300 rounded px-2 pl-6 h-7 text-xs w-24 outline-none focus:border-blue-400" />
+                   <Clock size={14} className="absolute left-2.5 top-2.5 text-slate-400"/>
+                   <input type="text" placeholder="开始日期" className="bg-slate-50 border border-slate-200 rounded-md px-3 pl-8 h-9 text-sm w-28 outline-none focus:bg-white focus:border-blue-400 transition-all" />
                  </div>
-                 <span className="text-slate-400 text-xs">至</span>
-                 <input type="text" placeholder="结束日期" className="border border-slate-300 rounded px-2 h-7 text-xs w-24 outline-none focus:border-blue-400" />
+                 <span className="text-slate-400 text-sm">至</span>
+                 <input type="text" placeholder="结束日期" className="bg-slate-50 border border-slate-200 rounded-md px-3 h-9 text-sm w-28 outline-none focus:bg-white focus:border-blue-400 transition-all" />
                </div>
             ) : null}
           </div>
@@ -499,13 +504,13 @@ const FilterSection = ({ config, isHistoryView }: { config: PageConfig, isHistor
         {hasActions && (
           <div className="flex gap-2 ml-2 pl-4 border-l border-slate-200">
             {config.actions?.includes("add") && (
-              <button className="bg-[#1890ff] text-white px-3 h-7 rounded text-xs font-medium flex items-center gap-1 hover:bg-blue-600">
-                <Plus size={12} /> 新增
+              <button className="bg-[#1890ff] text-white px-4 h-9 rounded-md text-sm font-medium flex items-center gap-1.5 hover:bg-blue-600 shadow-blue-100 shadow-md transition-all">
+                <Plus size={16} /> 新增
               </button>
             )}
             {config.actions?.includes("upload") && (
-              <button className="bg-[#52c41a] text-white px-3 h-7 rounded text-xs font-medium flex items-center gap-1 hover:bg-green-600">
-                <Upload size={12} /> 上传文件(号码过滤)
+              <button className="bg-[#52c41a] text-white px-4 h-9 rounded-md text-sm font-medium flex items-center gap-1.5 hover:bg-green-600 shadow-green-100 shadow-md transition-all">
+                <Upload size={16} /> 上传文件
               </button>
             )}
           </div>
@@ -523,15 +528,15 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
   const data = useMemo(() => config.generateData(), [type, subTab]);
 
   return (
-    <div className="flex flex-col gap-3 h-full overflow-hidden">
+    <div className="flex flex-col gap-4 h-full overflow-hidden">
       {/* 1. 筛选区域 (圆角矩形) */}
       <FilterSection config={config} isHistoryView={isHistoryView} />
 
       {/* 2. 表格区域 (圆角矩形) */}
-      <div className="flex-1 bg-white border border-slate-100 rounded-lg shadow-sm flex flex-col overflow-hidden relative">
+      <div className="flex-1 bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col overflow-hidden relative">
         {/* Special 'Collapse' tag for history view */}
         {isHistoryView && (
-          <div className="absolute top-0 right-0 bg-[#3b82f6] text-white text-[10px] px-3 py-1 rounded-bl-lg font-medium cursor-pointer flex items-center gap-1 z-20">
+          <div className="absolute top-0 right-0 bg-[#3b82f6] text-white text-[11px] px-3 py-1.5 rounded-bl-xl font-semibold cursor-pointer flex items-center gap-1 z-20 shadow-sm hover:bg-blue-600 transition-colors">
              收起
           </div>
         )}
@@ -539,26 +544,26 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
         {/* 表格内容 */}
         <div className="flex-1 overflow-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
-            <thead className="bg-slate-50 sticky top-0 z-10 shadow-sm text-xs font-bold text-slate-600">
+            <thead className="bg-[#f8fafc] sticky top-0 z-10 text-[13px] font-semibold text-slate-600 tracking-wide border-b border-slate-200">
               <tr>
-                <th className="p-3 border-b text-center w-12 text-slate-500 font-normal">序号</th>
+                <th className="p-4 border-b border-slate-200 text-center w-14 text-slate-400 font-medium">序号</th>
                 {config.columns.map(col => (
-                  <th key={col.key} className="p-3 border-b" style={{ width: col.width }}>
-                    <div className="flex items-center gap-1">
+                  <th key={col.key} className="p-4 border-b border-slate-200" style={{ width: col.width }}>
+                    <div className="flex items-center gap-1.5">
                       {col.header}
-                      {col.sortable && <ArrowUpDown size={12} className="text-slate-400" />}
+                      {col.sortable && <ArrowUpDown size={13} className="text-slate-400 cursor-pointer hover:text-blue-500" />}
                     </div>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+            <tbody className="divide-y divide-slate-200 text-[13px] text-slate-700">
               {data.map((row, i) => (
-                <tr key={i} className="hover:bg-blue-50/30 transition-colors">
-                  <td className="p-3 text-center text-slate-400">{i + 1}</td>
+                <tr key={i} className="hover:bg-blue-50/40 transition-colors group even:bg-blue-50">
+                  <td className="p-4 text-center text-slate-400 group-hover:text-slate-500">{i + 1}</td>
                   {config.columns.map(col => (
-                    <td key={col.key} className="p-3">
-                      {col.render ? col.render(row) : row[col.key]}
+                    <td key={col.key} className="p-4">
+                      {col.render ? col.render(row) : <span className="text-slate-700 font-normal">{row[col.key]}</span>}
                     </td>
                   ))}
                 </tr>
@@ -568,18 +573,20 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
         </div>
 
         {/* 底部页码 */}
-        <div className="px-4 py-2 border-t border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
-          <span className="text-[11px] text-slate-500">共 {data.length} 条</span>
-          <div className="flex items-center gap-1">
-            <select className="border border-slate-200 rounded text-xs h-6 px-1 bg-white outline-none">
+        <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-between bg-white shrink-0 rounded-b-xl">
+          <span className="text-xs text-slate-500 font-medium">共 {data.length} 条数据</span>
+          <div className="flex items-center gap-2">
+            <select className="border border-slate-200 rounded-md text-xs h-7 px-2 bg-white outline-none text-slate-600 cursor-pointer hover:border-blue-400 transition-colors">
               <option>10条/页</option>
               <option>20条/页</option>
             </select>
-            <button className="w-6 h-6 border border-slate-200 rounded bg-white flex items-center justify-center hover:border-blue-400 disabled:opacity-50"><ChevronLeft size={12} className="text-slate-400" /></button>
-            <button className="w-6 h-6 border border-[#1890ff] rounded bg-[#1890ff] text-white text-[11px] font-bold">1</button>
-            <button className="w-6 h-6 border border-slate-200 rounded bg-white text-[11px] text-slate-600 hover:border-blue-400 hover:text-blue-500">2</button>
-            <button className="w-6 h-6 border border-slate-200 rounded bg-white flex items-center justify-center hover:border-blue-400"><ChevronRight size={12} className="text-slate-400" /></button>
-            <span className="text-[11px] text-slate-500 ml-2">前往 <input type="text" defaultValue="1" className="w-8 border border-slate-200 rounded text-center h-5" /> 页</span>
+            <div className="flex items-center gap-1">
+              <button className="w-7 h-7 border border-slate-200 rounded-md bg-white flex items-center justify-center hover:border-blue-400 hover:text-blue-500 disabled:opacity-50 transition-all text-slate-500"><ChevronLeft size={14} /></button>
+              <button className="w-7 h-7 border border-[#1890ff] rounded-md bg-[#1890ff] text-white text-xs font-bold shadow-sm">1</button>
+              <button className="w-7 h-7 border border-slate-200 rounded-md bg-white text-xs text-slate-600 hover:border-blue-400 hover:text-blue-500 font-medium transition-all">2</button>
+              <button className="w-7 h-7 border border-slate-200 rounded-md bg-white flex items-center justify-center hover:border-blue-400 hover:text-blue-500 transition-all text-slate-500"><ChevronRight size={14} /></button>
+            </div>
+            <span className="text-xs text-slate-500 ml-2">前往 <input type="text" defaultValue="1" className="w-9 border border-slate-200 rounded-md text-center h-6 text-xs focus:border-blue-400 outline-none transition-all" /> 页</span>
           </div>
         </div>
       </div>
@@ -599,42 +606,42 @@ const App = () => {
   }, [activeTab]);
 
   return (
-    <div className="h-screen bg-[#f8fafc] p-3 flex flex-col overflow-hidden font-sans text-slate-800">
+    <div className="h-screen bg-[#f1f5f9] p-4 flex flex-col overflow-hidden font-sans text-slate-800 antialiased">
       <NotificationBar />
       
       <MenuGrid active={activeTab} onSelect={(t) => setActiveTab(t as MenuType)} />
       
-      {/* 运营效能概览 */}
-      <div className="bg-[#f0f7ff] rounded-lg border border-[#d9d9d9] overflow-hidden flex items-center shadow-sm h-12 mb-2 shrink-0">
-        <div className="flex items-center gap-3 px-4 flex-1">
-          <div className="flex items-center gap-2 mr-4 shrink-0">
+      {/* 运营效能概览 - Updated style to match 'Total Points' card in reference (Cleaner, White, Shadow) */}
+      <div className="bg-white rounded-xl border border-slate-100 flex items-center shadow-sm h-14 mb-4 shrink-0 px-1">
+        <div className="flex items-center gap-4 px-4 flex-1">
+          <div className="flex items-center gap-2 mr-2 shrink-0 bg-blue-50 px-3 py-1.5 rounded-lg">
             <Activity size={18} className="text-[#1890ff]" />
             <span className="text-sm font-bold text-[#003a8c]">运营效能概览</span>
           </div>
 
           {/* Sub Navigation for 'Tag Management' */}
           {activeTab === '标签管理' && (
-             <div className="flex gap-1 mr-8">
+             <div className="flex gap-2 mr-8">
                <button 
                 onClick={() => setSubTab('manage')}
-                className={`text-xs px-3 py-1 rounded transition-colors ${subTab === 'manage' ? 'bg-[#1890ff] text-white' : 'text-[#1890ff] hover:bg-blue-100'}`}
+                className={`text-xs font-semibold px-4 py-1.5 rounded-full transition-all ${subTab === 'manage' ? 'bg-[#1890ff] text-white shadow-md shadow-blue-200' : 'text-slate-600 bg-slate-100 hover:bg-slate-200'}`}
                >
                  标签管理
                </button>
                <button 
                 onClick={() => setSubTab('history')}
-                className={`text-xs px-3 py-1 rounded transition-colors ${subTab === 'history' ? 'bg-[#1890ff] text-white' : 'text-[#1890ff] hover:bg-blue-100'}`}
+                className={`text-xs font-semibold px-4 py-1.5 rounded-full transition-all ${subTab === 'history' ? 'bg-[#1890ff] text-white shadow-md shadow-blue-200' : 'text-slate-600 bg-slate-100 hover:bg-slate-200'}`}
                >
                  历史操作记录
                </button>
              </div>
           )}
 
-          <div className="flex gap-12">
-            {[['今日单量', '2,482', '#262626'], ['异常预警', '3', '#f5222d'], ['榜单第一', '廖林峰', '#52c41a'], ['全网GMV', '¥85.4w', '#1890ff']].map(([label, val, color]) => (
-              <div key={label} className="flex items-center gap-1.5">
-                <span className="text-[12px] text-[#8c8c8c]">{label}:</span>
-                <span className="text-base font-bold font-mono" style={{ color }}>{val}</span>
+          <div className="flex items-center gap-6 ml-4">
+            {[['今日单量', '2,482', '#333333'], ['异常预警', '3', '#f5222d'], ['榜单第一', '廖林峰', '#52c41a'], ['全网GMV', '¥85.4w', '#1890ff']].map(([label, val, color]) => (
+              <div key={label} className="flex items-baseline gap-1.5">
+                 <span className="text-[12px] text-slate-500 font-medium">{label}</span>
+                 <span className="text-base font-bold font-mono" style={{ color }}>{val}</span>
               </div>
             ))}
           </div>
