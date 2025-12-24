@@ -404,7 +404,7 @@ const BUTTON_THEMES = [
 const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) => void }) => {
   return (
     <div className="bg-white p-4 rounded-xl border border-slate-100 mb-4 shadow-sm">
-      <div className="grid grid-cols-5 gap-3">
+      <div className="flex items-center justify-between w-full gap-2">
         {MENU_ITEMS.map((item, index) => {
           // Force blue theme for all items as requested (Complaint, Tag, Templates, Channels, Tasks, Timeout, Logs, MiniProgram)
           // "短信区域" is naturally blue (index 2). 
@@ -418,7 +418,7 @@ const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) 
             <button
               key={item}
               onClick={() => onSelect(item)}
-              className={`h-9 text-sm font-bold rounded-lg border transition-all duration-200 flex items-center justify-center ${
+              className={`h-9 text-sm font-bold rounded-lg border transition-all duration-200 flex items-center justify-center whitespace-nowrap flex-1 ${
                 isActive 
                   ? `${theme.solid} shadow-md transform scale-[1.02]` 
                   : `${theme.light} border bg-opacity-60`
@@ -428,8 +428,6 @@ const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) 
             </button>
           );
         })}
-        {/* 占位符，保证网格整齐 */}
-        <div className="hidden sm:block"></div> 
       </div>
     </div>
   );
@@ -621,9 +619,9 @@ const App = () => {
       <MenuGrid active={activeTab} onSelect={(t) => setActiveTab(t as MenuType)} />
       
       {/* 运营效能概览 - Updated style to match 'Total Points' card in reference (Cleaner, White, Shadow) */}
-      <div className="bg-white rounded-xl border border-slate-100 flex items-center shadow-sm h-14 mb-4 shrink-0 px-1">
+      <div className="bg-gradient-to-r from-[#fff0e6] to-[#f0f5ff] rounded-xl border border-orange-200 flex items-center shadow-sm h-14 mb-4 shrink-0 px-1">
         <div className="flex items-center gap-4 px-4 flex-1">
-          <div className="flex items-center gap-2 mr-2 shrink-0 bg-blue-50 px-3 py-1.5 rounded-lg">
+          <div className="flex items-center gap-2 mr-2 shrink-0">
             <Activity size={18} className="text-[#1890ff]" />
             <span className="text-sm font-bold text-[#003a8c]">运营效能概览</span>
           </div>
