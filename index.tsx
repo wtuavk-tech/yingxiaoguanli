@@ -66,6 +66,7 @@ interface ColumnConfig {
   key: string;
   width?: string;
   sortable?: boolean;
+  isMono?: boolean; // New: Apply monospace font for numbers/codes
   render?: (row: any) => React.ReactNode;
 }
 
@@ -86,18 +87,18 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     ],
     actions: ["add"],
     columns: [
-      { header: "投诉编号", key: "code" },
+      { header: "投诉编号", key: "code", isMono: true },
       { header: "投诉人", key: "name" },
       { header: "用户类型", key: "userType" },
       { header: "投诉佐证", key: "proof", render: () => <span className="text-blue-500 cursor-pointer flex items-center gap-1"><FileText size={14}/> 图片</span> },
       { header: "投诉类型", key: "type" },
       { header: "内容", key: "content", width: "20%" },
-      { header: "创建时间", key: "createTime" },
+      { header: "创建时间", key: "createTime", isMono: true },
       { header: "状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_MAP[row.status as keyof typeof STATUS_MAP] || 'bg-gray-100'}`}>{row.status}</span> },
-      { header: "关联订单号", key: "orderNo" },
+      { header: "关联订单号", key: "orderNo", isMono: true },
       { header: "处理人", key: "handler" },
       { header: "处理意见", key: "opinion" },
-      { header: "处理时间", key: "handleTime" },
+      { header: "处理时间", key: "handleTime", isMono: true },
       { header: "操作", key: "ops", render: () => <button className="text-blue-600 hover:text-blue-700 font-medium">处理</button> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
@@ -123,14 +124,14 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     ],
     actions: ["add"],
     columns: [
-      { header: "标签ID", key: "tagId" },
-      { header: "标签编码", key: "code", width: "15%" },
+      { header: "标签ID", key: "tagId", isMono: true },
+      { header: "标签编码", key: "code", width: "15%", isMono: true },
       { header: "标签名称", key: "name" },
       { header: "标签分组", key: "group" },
       { header: "标签说明", key: "desc", width: "20%" },
       { header: "状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs font-medium ${row.status === '启用' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>{row.status}</span> },
-      { header: "标签简码", key: "shortCode" },
-      { header: "创建时间", key: "createTime" },
+      { header: "标签简码", key: "shortCode", isMono: true },
+      { header: "创建时间", key: "createTime", isMono: true },
       { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button><button className="hover:text-blue-700">禁用</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
@@ -155,7 +156,7 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     actions: ["add"],
     columns: [
       { header: "渠道名称", key: "channel" },
-      { header: "创建时间", key: "createTime" },
+      { header: "创建时间", key: "createTime", isMono: true },
       { header: "订单来源", key: "source" },
       { header: "区域全称", key: "fullRegion" },
       { header: "区域名称", key: "region" },
@@ -182,11 +183,11 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "类型", key: "type" },
       { header: "模板名称", key: "name" },
       { header: "状态", key: "status", render: (row) => <span className={`font-medium ${row.status === '启用' ? 'text-green-600' : 'text-slate-400'}`}>{row.status}</span> },
-      { header: "模板代码", key: "code" },
+      { header: "模板代码", key: "code", isMono: true },
       { header: "内容", key: "content", width: "25%" },
       { header: "渠道", key: "channel" },
-      { header: "参数", key: "params" },
-      { header: "创建时间", key: "createTime" },
+      { header: "参数", key: "params", isMono: true },
+      { header: "创建时间", key: "createTime", isMono: true },
       { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button></div> },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
@@ -212,7 +213,7 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
       { header: "平台", key: "platform" },
       { header: "店铺名称", key: "shopName" },
       { header: "店铺名称简写", key: "abbr" },
-      { header: "客服电话", key: "phone" },
+      { header: "客服电话", key: "phone", isMono: true },
       { header: "负责人", key: "manager" },
       { header: "是否可安排短信", key: "canSend" },
       { header: "短信关键词", key: "keywords" },
@@ -237,9 +238,9 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     actions: ["add", "upload"],
     columns: [
       { header: "任务名称", key: "name" },
-      { header: "发送时间", key: "sendTime" },
-      { header: "号码数量", key: "count" },
-      { header: "失败数量", key: "failCount" },
+      { header: "发送时间", key: "sendTime", isMono: true },
+      { header: "号码数量", key: "count", isMono: true },
+      { header: "失败数量", key: "failCount", isMono: true },
       { header: "发送状态", key: "status", render: (row) => <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_MAP[row.status as keyof typeof STATUS_MAP] || ''}`}>{row.status}</span> },
       { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 font-medium"><button className="hover:text-blue-700">详情</button><button className="text-orange-500 hover:text-orange-600">失败补发</button></div> },
     ],
@@ -261,11 +262,11 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     ],
     actions: [], // No add button usually for logs
     columns: [
-      { header: "订单号", key: "orderNo" },
-      { header: "手机号", key: "phone" },
+      { header: "订单号", key: "orderNo", isMono: true },
+      { header: "手机号", key: "phone", isMono: true },
       { header: "业务类型", key: "bizType" },
       { header: "发送类型", key: "sendType" },
-      { header: "发送时间", key: "sendTime" },
+      { header: "发送时间", key: "sendTime", isMono: true },
       { header: "状态", key: "status", render: (row) => <span className={`font-medium ${row.status === '成功' ? 'text-green-600' : 'text-red-600'}`}>{row.status}</span> },
       { header: "发送人", key: "sender" },
       { header: "失败原因", key: "failReason" },
@@ -291,11 +292,11 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     ],
     actions: [],
     columns: [
-      { header: "订单号", key: "orderNo" },
-      { header: "手机号", key: "phone" },
+      { header: "订单号", key: "orderNo", isMono: true },
+      { header: "手机号", key: "phone", isMono: true },
       { header: "业务类型", key: "bizType" },
       { header: "过滤原因", key: "reason", width: "30%" },
-      { header: "过滤时间", key: "time" },
+      { header: "过滤时间", key: "time", isMono: true },
     ],
     generateData: () => Array.from({ length: 20 }).map((_, i) => ({
       id: i,
@@ -313,14 +314,14 @@ const PAGE_CONFIGS: Record<MenuType, PageConfig> = {
     actions: ["add"],
     columns: [
       { header: "创建人", key: "creator" },
-      { header: "创建时间", key: "createTime" },
+      { header: "创建时间", key: "createTime", isMono: true },
       { header: "小程序版本", key: "version" },
       { header: "自动续期", key: "autoRenew" },
-      { header: "有效天数", key: "days" },
-      { header: "失效时间", key: "expireTime" },
-      { header: "小程序scheme码", key: "scheme", width: "15%", render: (r) => <div className="truncate w-32" title={r.scheme}>{r.scheme}</div> },
+      { header: "有效天数", key: "days", isMono: true },
+      { header: "失效时间", key: "expireTime", isMono: true },
+      { header: "小程序scheme码", key: "scheme", width: "15%", render: (r) => <div className="truncate w-32 font-mono" title={r.scheme}>{r.scheme}</div> },
       { header: "小程序页面名称", key: "pageName" },
-      { header: "页面路径", key: "path", width: "15%", render: (r) => <div className="truncate w-32" title={r.path}>{r.path}</div> },
+      { header: "页面路径", key: "path", width: "15%", render: (r) => <div className="truncate w-32 font-mono" title={r.path}>{r.path}</div> },
       { header: "标签", key: "tags" },
       { header: "操作", key: "ops", render: () => <div className="flex gap-3 text-blue-600 text-xs font-medium"><button className="hover:text-blue-700">重新生成</button><button className="hover:text-blue-700">修改</button><button className="text-red-500 hover:text-red-600">删除</button></div> },
     ],
@@ -346,10 +347,10 @@ const HISTORY_PAGE_CONFIG: PageConfig = {
     { type: "custom-date-row", label: "" }
   ],
   columns: [
-    { header: "操作时间", key: "time", sortable: true },
+    { header: "操作时间", key: "time", sortable: true, isMono: true },
     { header: "操作人", key: "operator", sortable: true },
     { header: "操作类型", key: "type", sortable: true },
-    { header: "涉及标签", key: "tag" },
+    { header: "涉及标签", key: "tag", isMono: true },
     { header: "操作详情", key: "details", width: "40%" },
   ],
   generateData: () => Array.from({ length: 15 }).map((_, i) => ({
@@ -563,7 +564,7 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
                   <td className="p-4 text-center text-slate-400 group-hover:text-slate-500">{i + 1}</td>
                   {config.columns.map(col => (
                     <td key={col.key} className="p-4">
-                      {col.render ? col.render(row) : <span className="text-slate-700 font-normal">{row[col.key]}</span>}
+                      {col.render ? col.render(row) : <span className={`text-slate-700 font-normal ${col.isMono ? 'font-mono' : ''}`}>{row[col.key]}</span>}
                     </td>
                   ))}
                 </tr>
@@ -574,7 +575,7 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
 
         {/* 底部页码 */}
         <div className="px-5 py-3 border-t border-slate-100 flex items-center justify-center gap-4 bg-white shrink-0 rounded-b-xl">
-          <span className="text-sm text-slate-500">共 {data.length} 条</span>
+          <span className="text-sm text-slate-500">共 <span className="font-mono">{data.length}</span> 条</span>
           
           <select className="border border-slate-200 rounded px-2 h-8 text-sm outline-none text-slate-600 cursor-pointer hover:border-blue-400 transition-colors bg-white">
             <option>20条/页</option>
@@ -584,16 +585,16 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
 
           <div className="flex items-center gap-1">
             <button className="w-8 h-8 border border-slate-200 rounded bg-white flex items-center justify-center text-slate-500 hover:border-blue-400 hover:text-blue-500 disabled:opacity-50 transition-all"><ChevronLeft size={16} /></button>
-            <button className="w-8 h-8 border border-[#1890ff] rounded bg-[#1890ff] text-white text-sm font-medium shadow-sm transition-all">1</button>
+            <button className="w-8 h-8 border border-[#1890ff] rounded bg-[#1890ff] text-white text-sm font-medium shadow-sm transition-all font-mono">1</button>
             {[2, 3, 4, 5, 6, 7].map(num => (
-              <button key={num} className="w-8 h-8 border border-slate-200 rounded bg-white text-sm text-slate-600 hover:border-blue-400 hover:text-blue-500 font-medium transition-all">{num}</button>
+              <button key={num} className="w-8 h-8 border border-slate-200 rounded bg-white text-sm text-slate-600 hover:border-blue-400 hover:text-blue-500 font-medium transition-all font-mono">{num}</button>
             ))}
             <button className="w-8 h-8 border border-slate-200 rounded bg-white flex items-center justify-center text-slate-500 hover:border-blue-400 hover:text-blue-500 transition-all"><ChevronRight size={16} /></button>
           </div>
 
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <span>前往</span>
-            <input type="text" defaultValue="1" className="w-12 h-8 border border-slate-200 rounded text-center text-sm focus:border-blue-400 outline-none transition-all" />
+            <input type="text" defaultValue="1" className="w-12 h-8 border border-slate-200 rounded text-center text-sm focus:border-blue-400 outline-none transition-all font-mono" />
             <span>页</span>
           </div>
         </div>
