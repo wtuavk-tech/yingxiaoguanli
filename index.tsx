@@ -372,22 +372,22 @@ const HISTORY_PAGE_CONFIG: PageConfig = {
 // --- 子组件：通知栏 (New Style: White BG, Blue Label) ---
 
 const NotificationBar = () => (
-  <div className="flex items-center gap-4 mb-4 px-3 py-2 bg-white rounded-lg shadow-sm border border-slate-100 shrink-0">
+  <div className="flex items-center gap-4 mb-4 px-3 py-3 bg-white rounded-lg shadow-sm border border-slate-100 shrink-0">
     <div className="flex items-center gap-2 shrink-0">
-      <div className="bg-[#1890ff] text-white text-xs px-3 py-1 rounded font-medium flex items-center gap-1 shadow-sm">
-        主要公告 <Bell size={12} className="text-white fill-white" />
+      <div className="bg-[#1890ff] text-white text-sm px-3 py-1 rounded font-medium flex items-center gap-1 shadow-sm">
+        主要公告 <Bell size={14} className="text-white fill-white" />
       </div>
     </div>
     
-    <div className="flex-1 overflow-hidden relative h-6 flex items-center">
-      <div className="whitespace-nowrap flex items-center gap-8 text-xs text-slate-600">
+    <div className="flex-1 overflow-hidden relative h-7 flex items-center">
+      <div className="whitespace-nowrap flex items-center gap-8 text-sm text-slate-600">
         <span className="flex items-center gap-2">级晋升评审的通知: 点击下方详情以阅读完整公告内容。</span>
-        <span className="flex items-center gap-2 text-slate-500"><span className="w-2 h-2 rounded-full bg-orange-400"></span> <Volume2 size={12}/> 系统升级通知: 今晚 24:00 将进行系统维护。</span>
-        <span className="flex items-center gap-2 text-slate-500"><span className="text-red-500 font-bold">⚑</span> <Flame size={12} className="text-orange-500"/> 10月业绩pk赛圆满结束，恭喜华东大区获得冠军！</span>
+        <span className="flex items-center gap-2 text-slate-500"><span className="w-2 h-2 rounded-full bg-orange-400"></span> <Volume2 size={14}/> 系统升级通知: 今晚 24:00 将进行系统维护。</span>
+        <span className="flex items-center gap-2 text-slate-500"><span className="text-red-500 font-bold">⚑</span> <Flame size={14} className="text-orange-500"/> 10月业绩pk赛圆满结束，恭喜华东大区获得冠军！</span>
       </div>
     </div>
 
-    <div className="flex items-center gap-6 shrink-0 text-xs pl-2">
+    <div className="flex items-center gap-6 shrink-0 text-sm pl-2">
       <div className="border border-slate-200 px-2 py-0.5 rounded text-slate-400 font-mono bg-slate-50">
         2025-11-19
       </div>

@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>业务订单后台管理系统</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Source Han Sans CN"', '"Noto Sans SC"', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
       /* 自定义滚动条样式，让表格滚动更美观 */
@@ -23,7 +34,7 @@
         background: #a8a8a8;
       }
       body {
-        font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: 'Source Han Sans CN', 'Noto Sans SC', sans-serif;
       }
     </style>
   <script type="importmap">
