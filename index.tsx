@@ -671,27 +671,27 @@ const App = () => {
           )}
 
           <div className="flex items-center gap-4 ml-2 overflow-hidden">
-            <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-2 text-sm">
               <span className="text-slate-500">其它类400客户量</span>
               <span className="text-red-500 font-bold font-mono">158</span>
             </div>
-            <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-2 text-sm">
               <span className="text-slate-500">正常类400客户量</span>
               <span className="text-[#1890ff] font-bold font-mono">342</span>
             </div>
-            <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-2 text-sm">
                <span className="text-slate-500">400总接听量</span>
                <span className="text-green-600 font-bold font-mono">500</span>
             </div>
-             <div className="flex items-center gap-2 text-xs">
+             <div className="flex items-center gap-2 text-sm">
                <span className="text-slate-500">其它类占比</span>
                <span className="text-purple-600 font-bold font-mono">31.6%</span>
             </div>
-            <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-2 text-sm">
                <span className="text-slate-500">正常类占比</span>
                <span className="text-teal-500 font-bold font-mono">68.4%</span>
             </div>
-             <div className="flex items-center gap-2 text-xs">
+             <div className="flex items-center gap-2 text-sm">
                <span className="text-slate-500">预约转化率</span>
                <span className="text-blue-600 font-bold font-mono">94.1%</span>
             </div>
