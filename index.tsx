@@ -699,9 +699,6 @@ const App = () => {
         </div>
 
         <div className="flex items-center gap-3 border-l pl-4 border-slate-100">
-             <button className="bg-[#1890ff] hover:bg-blue-600 text-white text-xs px-4 py-1.5 rounded flex items-center gap-1 transition-colors">
-                <Plus size={14}/> 新增
-             </button>
              <button className="text-[#1890ff] hover:text-blue-700 text-xs flex items-center gap-1">
                 <Search size={14}/> 点击高级筛选
              </button>
