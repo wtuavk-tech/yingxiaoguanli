@@ -19,7 +19,12 @@ import {
   Flame,
   Volume2,
   ArrowUpDown,
-  ChevronUp
+  ChevronUp,
+  Shield,
+  Layout,
+  Radio,
+  List,
+  CheckSquare
 } from 'lucide-react';
 
 // --- 常量定义 ---
@@ -364,67 +369,84 @@ const HISTORY_PAGE_CONFIG: PageConfig = {
 };
 
 
-// --- 子组件：通知栏 (New Dark Theme) ---
+// --- 子组件：通知栏 (New Style: White BG, Blue Label) ---
 
 const NotificationBar = () => (
-  <div className="flex items-center gap-4 mb-4 px-4 py-3 bg-[#0f172a] rounded-lg shadow-sm overflow-hidden shrink-0 text-white border-l-4 border-red-500">
+  <div className="flex items-center gap-4 mb-4 px-3 py-2 bg-white rounded-lg shadow-sm border border-slate-100 shrink-0">
     <div className="flex items-center gap-2 shrink-0">
-      <div className="bg-red-500 text-white text-xs px-2 py-0.5 rounded font-bold">重要公告</div>
-      <Bell size={14} className="text-slate-400" />
+      <div className="bg-[#1890ff] text-white text-xs px-3 py-1 rounded font-medium flex items-center gap-1 shadow-sm">
+        主要公告 <Bell size={12} className="text-white fill-white" />
+      </div>
     </div>
     
-    <div className="flex-1 overflow-hidden relative h-5 flex items-center border-r border-slate-700 pr-4">
-      <div className="whitespace-nowrap animate-[marquee_30s_linear_infinite] flex items-center gap-8 text-xs text-slate-200">
-        <span className="flex items-center gap-2"><Volume2 size={12}/> 关于 2025 年度秋季职级晋升评审的通知: 点击下方详情以阅读完整公告内容。请所有相关人员务必在截止日期前完成确认。</span>
+    <div className="flex-1 overflow-hidden relative h-6 flex items-center">
+      <div className="whitespace-nowrap flex items-center gap-8 text-xs text-slate-600">
+        <span className="flex items-center gap-2">级晋升评审的通知: 点击下方详情以阅读完整公告内容。</span>
+        <span className="flex items-center gap-2 text-slate-500"><span className="w-2 h-2 rounded-full bg-orange-400"></span> <Volume2 size={12}/> 系统升级通知: 今晚 24:00 将进行系统维护。</span>
+        <span className="flex items-center gap-2 text-slate-500"><span className="text-red-500 font-bold">⚑</span> <Flame size={12} className="text-orange-500"/> 10月业绩pk赛圆满结束，恭喜华东大区获得冠军！</span>
       </div>
     </div>
 
     <div className="flex items-center gap-6 shrink-0 text-xs pl-2">
-      <div className="bg-[#1e293b] px-2 py-1 rounded text-slate-400 font-mono">
+      <div className="border border-slate-200 px-2 py-0.5 rounded text-slate-400 font-mono bg-slate-50">
         2025-11-19
       </div>
     </div>
-    <style>{`@keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }`}</style>
   </div>
 );
 
-// --- 子组件：新的 5x2 菜单网格 (Colorful Theme) ---
+// --- 子组件：菜单网格 (New Style: White Buttons with Colored Borders) ---
 
-// Defining color themes to cycle through
-const BUTTON_THEMES = [
-  { name: 'red', solid: 'bg-red-500 text-white border-red-500 shadow-red-200', light: 'bg-red-50 text-red-500 border-red-200 hover:border-red-400' },
-  { name: 'orange', solid: 'bg-orange-400 text-white border-orange-400 shadow-orange-200', light: 'bg-[#fff7e6] text-[#fa8c16] border-[#ffe7ba] hover:border-[#ffd591]' },
-  { name: 'blue', solid: 'bg-blue-500 text-white border-blue-500 shadow-blue-200', light: 'bg-[#e6f7ff] text-[#1890ff] border-[#bae7ff] hover:border-[#91d5ff]' },
-  { name: 'green', solid: 'bg-[#a0d911] text-white border-[#a0d911] shadow-lime-200', light: 'bg-[#fcffe6] text-[#7cb305] border-[#eaff8f] hover:border-[#d3f261]' },
-  { name: 'cyan', solid: 'bg-cyan-400 text-white border-cyan-400 shadow-cyan-200', light: 'bg-[#e6fffb] text-[#13c2c2] border-[#87e8de] hover:border-[#5cdbd3]' },
-  { name: 'purple', solid: 'bg-purple-500 text-white border-purple-500 shadow-purple-200', light: 'bg-[#f9f0ff] text-[#722ed1] border-[#d3adf7] hover:border-[#b37feb]' },
-  { name: 'pink', solid: 'bg-[#ff85c0] text-white border-[#ff85c0] shadow-pink-200', light: 'bg-[#fff0f6] text-[#eb2f96] border-[#ffadd2] hover:border-[#ff85c0]' },
+// Icons mapped to menu items for variety
+const MENU_ICONS = [
+  Shield,       // 投诉
+  Layout,       // 标签
+  Radio,        // 区域
+  List,         // 模板
+  CheckSquare,  // 渠道
+  MessageSquare,// 任务
+  Clock,        // 超时
+  AlertCircle,  // 过滤
+  RotateCcw     // 小程序
+];
+
+// Specific colors for the buttons
+const BUTTON_STYLES = [
+  { border: 'border-red-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-red-500' },
+  { border: 'border-orange-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-orange-400' },
+  { border: 'border-blue-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-blue-500' },
+  { border: 'border-green-500', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-green-600' },
+  { border: 'border-cyan-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-cyan-500' },
+  { border: 'border-purple-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-purple-500' },
+  // Repeat or similar for others
+  { border: 'border-rose-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-rose-500' },
+  { border: 'border-yellow-500', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-yellow-500' },
+  { border: 'border-indigo-400', text: 'text-slate-700', iconColor: 'text-white', bgIcon: 'bg-indigo-500' },
 ];
 
 const MenuGrid = ({ active, onSelect }: { active: string, onSelect: (t: string) => void }) => {
   return (
-    <div className="bg-white p-4 rounded-xl border border-slate-100 mb-4 shadow-sm">
-      <div className="flex items-center justify-between w-full gap-2">
+    <div className="mb-4">
+      <div className="flex items-center justify-between w-full gap-3">
         {MENU_ITEMS.map((item, index) => {
-          // Force blue theme for all items as requested (Complaint, Tag, Templates, Channels, Tasks, Timeout, Logs, MiniProgram)
-          // "短信区域" is naturally blue (index 2). 
-          // The user requested all other specific items to match "短信区域".
-          // Since this covers the entire list, we use the blue theme for everything.
-          const theme = BUTTON_THEMES[2]; 
-
+          const style = BUTTON_STYLES[index % BUTTON_STYLES.length];
+          const Icon = MENU_ICONS[index % MENU_ICONS.length];
           const isActive = active === item;
           
           return (
             <button
               key={item}
               onClick={() => onSelect(item)}
-              className={`h-9 text-sm font-bold rounded-lg border transition-all duration-200 flex items-center justify-center whitespace-nowrap flex-1 ${
+              className={`h-11 text-xs font-bold rounded-lg border transition-all duration-200 flex items-center justify-center whitespace-nowrap flex-1 gap-2 group ${
                 isActive 
-                  ? `${theme.solid} shadow-md transform scale-[1.02]` 
-                  : `${theme.light} border bg-opacity-60`
+                  ? `${style.border} bg-white shadow-md transform scale-[1.02]` 
+                  : `${style.border} bg-white hover:bg-slate-50`
               }`}
             >
-              {item}
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center ${style.iconColor} ${style.bgIcon} group-hover:scale-110 transition-transform`}>
+                 <Icon size={12} strokeWidth={3} />
+              </div>
+              <span className="text-slate-700">{item}</span>
             </button>
           );
         })}
@@ -556,9 +578,11 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 text-[13px] text-slate-700">
+            <tbody className="text-[13px] text-slate-700">
               {data.map((row, i) => (
-                <tr key={i} className="hover:bg-blue-50/40 transition-colors group even:bg-blue-50">
+                // Added specific color for even rows: #FFF0F0
+                // Added border-b border-[#cbd5e1] as requested
+                <tr key={i} className="hover:bg-blue-50/40 transition-colors group even:bg-[#FFF0F0] border-b border-[#cbd5e1]">
                   <td className="p-4 text-center text-slate-400 group-hover:text-slate-500">{i + 1}</td>
                   {config.columns.map(col => (
                     <td key={col.key} className="p-4">
@@ -618,40 +642,69 @@ const App = () => {
       
       <MenuGrid active={activeTab} onSelect={(t) => setActiveTab(t as MenuType)} />
       
-      {/* 运营效能概览 - Updated style to match 'Total Points' card in reference (Cleaner, White, Shadow) */}
-      <div className="bg-gradient-to-r from-[#fff0e6] to-[#f0f5ff] rounded-xl border border-orange-200 flex items-center shadow-sm h-14 mb-4 shrink-0 px-1">
-        <div className="flex items-center gap-4 px-4 flex-1">
+      {/* 运营效能概览 - Updated style to match 'Total Points' card in reference (White, Clean, Shadow) */}
+      <div className="bg-white rounded-lg shadow-sm border border-slate-100 flex items-center h-16 mb-4 shrink-0 px-4">
+        <div className="flex items-center gap-4 flex-1">
           <div className="flex items-center gap-2 mr-2 shrink-0">
-            <Activity size={18} className="text-[#1890ff]" />
-            <span className="text-sm font-bold text-[#003a8c]">运营效能概览</span>
+            <div className="w-8 h-8 bg-[#1890ff] rounded-full flex items-center justify-center text-white">
+               <Activity size={16} />
+            </div>
+            <span className="text-sm font-bold text-slate-800">数据概览</span>
           </div>
 
-          {/* Sub Navigation for 'Tag Management' */}
+          {/* Sub Navigation for 'Tag Management' - Only show if active */}
           {activeTab === '标签管理' && (
-             <div className="flex gap-2 mr-8">
+             <div className="flex gap-2 mr-4 border-l pl-4">
                <button 
                 onClick={() => setSubTab('manage')}
-                className={`text-xs font-semibold px-4 py-1.5 rounded-full transition-all ${subTab === 'manage' ? 'bg-[#1890ff] text-white shadow-md shadow-blue-200' : 'text-slate-600 bg-slate-100 hover:bg-slate-200'}`}
+                className={`text-xs font-semibold px-3 py-1 rounded transition-all ${subTab === 'manage' ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:text-slate-700'}`}
                >
                  标签管理
                </button>
                <button 
                 onClick={() => setSubTab('history')}
-                className={`text-xs font-semibold px-4 py-1.5 rounded-full transition-all ${subTab === 'history' ? 'bg-[#1890ff] text-white shadow-md shadow-blue-200' : 'text-slate-600 bg-slate-100 hover:bg-slate-200'}`}
+                className={`text-xs font-semibold px-3 py-1 rounded transition-all ${subTab === 'history' ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:text-slate-700'}`}
                >
                  历史操作记录
                </button>
              </div>
           )}
 
-          <div className="flex items-center gap-6 ml-4">
-            {[['今日单量', '2,482', '#333333'], ['异常预警', '3', '#f5222d'], ['榜单第一', '廖林峰', '#52c41a'], ['全网GMV', '¥85.4w', '#1890ff']].map(([label, val, color]) => (
-              <div key={label} className="flex items-baseline gap-1.5">
-                 <span className="text-[12px] text-slate-500 font-medium">{label}</span>
-                 <span className="text-base font-bold font-mono" style={{ color }}>{val}</span>
-              </div>
-            ))}
+          <div className="flex items-center gap-4 ml-2 overflow-hidden">
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-slate-500">其它类400客户量</span>
+              <span className="text-red-500 font-bold font-mono">158</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-slate-500">正常类400客户量</span>
+              <span className="text-[#1890ff] font-bold font-mono">342</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+               <span className="text-slate-500">400总接听量</span>
+               <span className="text-green-600 font-bold font-mono">500</span>
+            </div>
+             <div className="flex items-center gap-2 text-xs">
+               <span className="text-slate-500">其它类占比</span>
+               <span className="text-purple-600 font-bold font-mono">31.6%</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+               <span className="text-slate-500">正常类占比</span>
+               <span className="text-teal-500 font-bold font-mono">68.4%</span>
+            </div>
+             <div className="flex items-center gap-2 text-xs">
+               <span className="text-slate-500">预约转化率</span>
+               <span className="text-blue-600 font-bold font-mono">94.1%</span>
+            </div>
           </div>
+        </div>
+
+        <div className="flex items-center gap-3 border-l pl-4 border-slate-100">
+             <button className="bg-[#1890ff] hover:bg-blue-600 text-white text-xs px-4 py-1.5 rounded flex items-center gap-1 transition-colors">
+                <Plus size={14}/> 新增
+             </button>
+             <button className="text-[#1890ff] hover:text-blue-700 text-xs flex items-center gap-1">
+                <Search size={14}/> 点击高级筛选
+             </button>
         </div>
       </div>
 
