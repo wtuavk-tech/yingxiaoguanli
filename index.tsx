@@ -565,11 +565,11 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
         {/* 表格内容 */}
         <div className="flex-1 overflow-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
-            <thead className="bg-[#f8fafc] sticky top-0 z-10 text-[13px] font-semibold text-slate-600 tracking-wide border-b border-slate-200">
+            <thead className="bg-[#f8fafc] sticky top-0 z-10 text-[13px] font-semibold text-slate-700 tracking-wide border-b border-slate-200">
               <tr>
-                <th className="p-4 border-b border-slate-200 text-center w-14 text-slate-400 font-medium">序号</th>
+                <th className="p-4 border-b border-slate-200 text-center w-14 font-medium whitespace-nowrap">序号</th>
                 {config.columns.map(col => (
-                  <th key={col.key} className="p-4 border-b border-slate-200" style={{ width: col.width }}>
+                  <th key={col.key} className="p-4 border-b border-slate-200 whitespace-nowrap" style={{ width: col.width }}>
                     <div className="flex items-center gap-1.5">
                       {col.header}
                       {col.sortable && <ArrowUpDown size={13} className="text-slate-400 cursor-pointer hover:text-blue-500" />}
