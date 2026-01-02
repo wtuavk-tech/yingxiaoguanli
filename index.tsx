@@ -24,7 +24,8 @@ import {
   Layout,
   Radio,
   List,
-  CheckSquare
+  CheckSquare,
+  BarChart3
 } from 'lucide-react';
 
 // --- 常量定义 ---
@@ -543,7 +544,7 @@ const FilterSection = ({ config, isHistoryView }: { config: PageConfig, isHistor
 
 // --- 子组件：Table List ---
 
-const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'history' }) => {
+const TableList = ({ type, subTab, showFilters }: { type: MenuType, subTab: 'manage' | 'history', showFilters: boolean }) => {
   const isHistoryView = type === '标签管理' && subTab === 'history';
   const config = isHistoryView ? HISTORY_PAGE_CONFIG : PAGE_CONFIGS[type];
   const data = useMemo(() => config.generateData(), [type, subTab]);
@@ -551,7 +552,7 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
   return (
     <div className="flex flex-col gap-4 h-full overflow-hidden">
       {/* 1. 筛选区域 (圆角矩形) */}
-      <FilterSection config={config} isHistoryView={isHistoryView} />
+      {showFilters && <FilterSection config={config} isHistoryView={isHistoryView} />}
 
       {/* 2. 表格区域 (圆角矩形) */}
       <div className="flex-1 bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col overflow-hidden relative">
@@ -630,10 +631,12 @@ const TableList = ({ type, subTab }: { type: MenuType, subTab: 'manage' | 'histo
 const App = () => {
   const [activeTab, setActiveTab] = useState<MenuType>(MENU_ITEMS[0]);
   const [subTab, setSubTab] = useState<'manage' | 'history'>('manage');
+  const [showFilters, setShowFilters] = useState(false);
 
   // Reset subTab when activeTab changes
   useEffect(() => {
     setSubTab('manage');
+    setShowFilters(false);
   }, [activeTab]);
 
   return (
@@ -647,9 +650,9 @@ const App = () => {
         <div className="flex items-center gap-4 flex-1">
           <div className="flex items-center gap-2 mr-2 shrink-0">
             <div className="w-8 h-8 bg-[#1890ff] rounded-full flex items-center justify-center text-white">
-               <Activity size={16} />
+               <BarChart3 size={16} />
             </div>
-            <span className="text-sm font-bold text-slate-800">数据概览</span>
+            <span className="text-sm font-bold text-slate-600">数据概览</span>
           </div>
 
           {/* Sub Navigation for 'Tag Management' - Only show if active */}
@@ -671,35 +674,38 @@ const App = () => {
           )}
 
           <div className="flex items-center gap-4 ml-2 overflow-hidden">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-slate-500">其它类400客户量</span>
-              <span className="text-red-500 font-bold font-mono">158</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">其它类400客户量</span>
+              <span className="text-[20px] text-red-500 font-bold font-mono leading-none">158</span>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-slate-500">正常类400客户量</span>
-              <span className="text-[#1890ff] font-bold font-mono">342</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">正常类400客户量</span>
+              <span className="text-[20px] text-[#1890ff] font-bold font-mono leading-none">342</span>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-               <span className="text-slate-500">400总接听量</span>
-               <span className="text-green-600 font-bold font-mono">500</span>
+            <div className="flex items-center gap-2">
+               <span className="text-xs text-slate-500">400总接听量</span>
+               <span className="text-[20px] text-green-600 font-bold font-mono leading-none">500</span>
             </div>
-             <div className="flex items-center gap-2 text-sm">
-               <span className="text-slate-500">其它类占比</span>
-               <span className="text-purple-600 font-bold font-mono">31.6%</span>
+             <div className="flex items-center gap-2">
+               <span className="text-xs text-slate-500">其它类占比</span>
+               <span className="text-[20px] text-purple-600 font-bold font-mono leading-none">31.6%</span>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-               <span className="text-slate-500">正常类占比</span>
-               <span className="text-teal-500 font-bold font-mono">68.4%</span>
+            <div className="flex items-center gap-2">
+               <span className="text-xs text-slate-500">正常类占比</span>
+               <span className="text-[20px] text-teal-500 font-bold font-mono leading-none">68.4%</span>
             </div>
-             <div className="flex items-center gap-2 text-sm">
-               <span className="text-slate-500">预约转化率</span>
-               <span className="text-blue-600 font-bold font-mono">94.1%</span>
+             <div className="flex items-center gap-2">
+               <span className="text-xs text-slate-500">预约转化率</span>
+               <span className="text-[20px] text-blue-600 font-bold font-mono leading-none">94.1%</span>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3 border-l pl-4 border-slate-100">
-             <button className="text-[#1890ff] hover:text-blue-700 text-xs flex items-center gap-1">
+             <button 
+              onClick={() => setShowFilters(!showFilters)}
+              className="text-[#1890ff] hover:text-blue-700 text-xs flex items-center gap-1"
+             >
                 <Search size={14}/> 点击高级筛选
              </button>
         </div>
@@ -707,7 +713,7 @@ const App = () => {
 
       {/* 核心内容区 */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <TableList type={activeTab} subTab={subTab} />
+        <TableList type={activeTab} subTab={subTab} showFilters={showFilters} />
       </div>
     </div>
   );
