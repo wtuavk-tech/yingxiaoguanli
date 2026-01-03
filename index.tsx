@@ -646,7 +646,7 @@ const App = () => {
       <MenuGrid active={activeTab} onSelect={(t) => setActiveTab(t as MenuType)} />
       
       {/* 运营效能概览 - Updated style to match 'Total Points' card in reference (White, Clean, Shadow) */}
-      <div className="bg-white rounded-lg shadow-sm border border-slate-100 flex items-center h-16 mb-4 shrink-0 px-4">
+      <div className="bg-white rounded-lg shadow-sm border border-slate-100 flex items-center h-[44px] mb-4 shrink-0 px-4">
         <div className="flex items-center gap-4 flex-1">
           <div className="flex items-center gap-2 mr-2 shrink-0">
             <div className="w-8 h-8 bg-[#1890ff] rounded-full flex items-center justify-center text-white">
